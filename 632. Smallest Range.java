@@ -18,7 +18,7 @@
         
         while(pq.size() == size) {
             int[] cur = pq.poll();
-            if(res[1] - res[0] > max - cur[0] || (res[1] - res[0] == max - cur[0] && res[0] > cur[0])){
+            if(res[1] - res[0] > max - cur[0]/* || (res[1] - res[0] == max - cur[0] && res[0] > cur[0])*/){
                 res[0] = cur[0];
                 res[1] = max;
             }
