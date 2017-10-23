@@ -1,26 +1,26 @@
     // 394. Decode String
-   
+
     public String decodeString(String s) {
         StringBuilder sb = new StringBuilder();
-        Stack<Integer> numstack = new Stack();
-        Stack<StringBuilder> strstack = new Stack();
-        int cur = 0;
-        for (char c : s.toCharArray()) {
-            if (Character.isDigit(c)) 
-                cur = cur * 10 + c - '0';
-            else if (c == '[') {
-                numstack.push(cur);
-                cur = 0;
-                strstack.push(sb);
+        int number = 0;
+        Stack<StringBuilder> stack = new Stack();
+        Stack<Integer> intStack = new Stack();
+        char[] ss = s.toCharArray();
+        for (char c : ss) {
+            if (Character.isDigit(c)) number = number * 10 + (c - '0');
+            else if(c == '[') {
+                intStack.push(number);
+                number = 0;
+                stack.push(sb);
                 sb = new StringBuilder();
-            } else if(c == ']') {
-                String t = sb.toString();
-                for(int i = 1; i < numstack.peek(); i++)
-                    sb.append(t);
-                sb.insert(0, strstack.pop());
-                numstack.pop();
-            } else 
-                sb.append(c);
+            } else if (c == ']') {
+                int times = intStack.pop();
+                String dup = sb.toString();
+                for (int i = 1; i < times; i++)
+                    sb.append(dup);
+                sb = stack.pop().append(sb);
+            } else sb.append(c);
         }
         return sb.toString();
     }
+    
